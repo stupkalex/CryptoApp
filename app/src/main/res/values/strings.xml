@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CryptoApp</string>
+    <string name="tvDetailLabelPrice">Цена:</string>
+    <string name="tvDetailLabelMinPrice">Минимум за день:</string>
+    <string name="tvDetailLabelMaxPrice">Максимум за день:</string>
+    <string name="tvDetailLabelLastDeal">Последняя сделка:</string>
+    <string name="tvDetailLabelLastUpdate">Последнее обновление:</string>
+</resources>
