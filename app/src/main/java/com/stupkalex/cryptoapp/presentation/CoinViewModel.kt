@@ -4,18 +4,25 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.stupkalex.cryptoapp.data.database.repository.CoinRepositoryImpl
+import com.stupkalex.cryptoapp.domain.GetCoinInfoListUseCase
+import com.stupkalex.cryptoapp.domain.GetCoinInfoUseCase
+import com.stupkalex.cryptoapp.domain.LoadDataUseCase
 import kotlinx.coroutines.launch
 
 class CoinViewModel(application: Application): AndroidViewModel(application) {
 
    private val repository = CoinRepositoryImpl(application)
 
-    val coinInfoList = repository.getCoinInfoList()
+    private val getCoinInfoListUseCase = GetCoinInfoListUseCase(repository)
+    private val getCoinInfoUseCase = GetCoinInfoUseCase(repository)
+    private val loadDataUseCase = LoadDataUseCase(repository)
 
-    fun getDetailInfo(fSym: String) = repository.getCoinInfo(fSym)
+    val coinInfoList = getCoinInfoListUseCase()
+
+    fun getDetailInfo(fSym: String) = getCoinInfoUseCase(fSym)
 
     init {
-            repository.loadData()
+            loadDataUseCase()
     }
 
 
