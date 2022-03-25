@@ -3,8 +3,11 @@ package com.stupkalex.cryptoapp.data.database.repository
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import androidx.work.ExistingWorkPolicy
+import androidx.work.WorkManager
 import com.stupkalex.cryptoapp.data.database.AppDatabase
 import com.stupkalex.cryptoapp.data.database.mapper.CoinMapper
+import com.stupkalex.cryptoapp.data.database.workers.RefreshDataWorker
 import com.stupkalex.cryptoapp.data.network.ApiFactory
 import com.stupkalex.cryptoapp.domain.CoinInfo
 import com.stupkalex.cryptoapp.domain.CoinRepository
@@ -14,7 +17,6 @@ class CoinRepositoryImpl(private val application: Application): CoinRepository {
 
     private val coinInfoDao = AppDatabase.getInstance(application).coinPriceListDao()
     private val mapper = CoinMapper()
-    private val apiService = ApiFactory.apiService
 
     override fun getCoinInfoList(): LiveData<List<CoinInfo>> {
         return Transformations.map(coinInfoDao.getCoinInfoList()){
@@ -30,18 +32,10 @@ class CoinRepositoryImpl(private val application: Application): CoinRepository {
         }
     }
 
-    override suspend fun loadData() {
-        while (true) {
-            try {
-                val topCoins = apiService.getTopCoinInfo(limit = 20)
-                val fSym = mapper.mapNamesListToString(topCoins)
-                val coinInfoContainer = apiService.getFullPriceList(fSym = fSym)
-                val coinInfoDtoList = mapper.mapJsonContainerToListCoinInfo(coinInfoContainer)
-                val dbModelList = coinInfoDtoList.map { mapper.mapDtoToDbModel(it) }
-                coinInfoDao.insertCoinInfoList(dbModelList)
-            } catch (e: Exception) {
-            }
-            delay(10000)
-        }
+    override fun loadData() {
+        val workManager = WorkManager.getInstance(application)
+        workManager.enqueueUniqueWork(RefreshDataWorker.NAME,
+        ExistingWorkPolicy.REPLACE,
+        RefreshDataWorker.makeRequest())
     }
 }

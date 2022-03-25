@@ -15,9 +15,7 @@ class CoinViewModel(application: Application): AndroidViewModel(application) {
     fun getDetailInfo(fSym: String) = repository.getCoinInfo(fSym)
 
     init {
-        viewModelScope.launch {
             repository.loadData()
-        }
     }
 
 
