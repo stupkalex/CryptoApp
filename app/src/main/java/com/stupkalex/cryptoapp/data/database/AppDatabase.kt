@@ -1,17 +1,16 @@
-package com.stupkalex.cryptoapp.database
+package com.stupkalex.cryptoapp.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.stupkalex.cryptoapp.pojo.CoinPriceInfo
 
-@Database(entities = [CoinPriceInfo::class], version = 1, exportSchema = false)
+@Database(entities = [CoinInfoDbModel::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
-    companion object{
+    companion object {
         private const val DB_NAME = "main.db"
-        private var db : AppDatabase? = null
+        private var db: AppDatabase? = null
         private val LOCK = Any()
 
         fun getInstance(context: Context): AppDatabase {
@@ -22,12 +21,14 @@ abstract class AppDatabase : RoomDatabase() {
                         context,
                         AppDatabase::class.java,
                         DB_NAME
-                    ).build()
+                    )
+                        .fallbackToDestructiveMigration()
+                        .build()
                 db = instance
                 return instance
             }
         }
     }
 
-    abstract fun coinPriceListDao(): CoinPriceInfoDao
+    abstract fun coinPriceListDao(): CoinInfoDao
 }

@@ -1,16 +1,13 @@
-package com.stupkalex.cryptoapp.pojo
+package com.stupkalex.cryptoapp.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
-
 import com.google.gson.annotations.SerializedName
-import com.stupkalex.cryptoapp.api.ApiFactory.BASE_IMAGE_URL
-import com.stupkalex.cryptoapp.utils.convertTimestampToTime
 
 
 @Entity(tableName = "full_price_list")
-data class CoinPriceInfo(
+data class CoinInfoDto(
     @SerializedName("TYPE")
     @Expose
     val type: String? = null,
@@ -22,11 +19,11 @@ data class CoinPriceInfo(
     @PrimaryKey
     @SerializedName("FROMSYMBOL")
     @Expose
-    val fromsymbol: String,
+    val fromSymbol: String,
 
     @SerializedName("TOSYMBOL")
     @Expose
-    val tosymbol: String? = null,
+    val toSymbol: String? = null,
 
     @SerializedName("FLAGS")
     @Expose
@@ -38,7 +35,7 @@ data class CoinPriceInfo(
 
     @SerializedName("LASTUPDATE")
     @Expose
-    val lastupdate: Long = 0,
+    val lastUpdate: Long = 0,
 
     @SerializedName("MEDIAN")
     @Expose
@@ -78,11 +75,11 @@ data class CoinPriceInfo(
 
     @SerializedName("HIGHDAY")
     @Expose
-    val highday: Double = 0.0,
+    val highDay: Double = 0.0,
 
     @SerializedName("LOWDAY")
     @Expose
-    val lowday: Double = 0.0,
+    val lowDay: Double = 0.0,
 
     @SerializedName("OPEN24HOUR")
     @Expose
@@ -98,7 +95,7 @@ data class CoinPriceInfo(
 
     @SerializedName("LASTMARKET")
     @Expose
-    val lastmarket: String? = null,
+    val lastMarket: String? = null,
 
     @SerializedName("VOLUMEHOUR")
     @Expose
@@ -198,13 +195,5 @@ data class CoinPriceInfo(
 
     @SerializedName("IMAGEURL")
     @Expose
-    val imageurl: String? = null
-) {
-    fun getFormattedDate(): String {
-        return convertTimestampToTime(lastupdate)
-    }
-
-    fun getFullImage(): String {
-        return BASE_IMAGE_URL + imageurl
-    }
-}
+    val imageUrl: String? = null
+)

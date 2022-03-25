@@ -1,8 +1,7 @@
-package com.stupkalex.cryptoapp.api
+package com.stupkalex.cryptoapp.data.network
 
-import com.stupkalex.cryptoapp.pojo.CoinInfoListOfData
-import com.stupkalex.cryptoapp.pojo.CoinPriceInfoRawDate
-import io.reactivex.Single
+import com.stupkalex.cryptoapp.data.model.CoinNamesListDto
+import com.stupkalex.cryptoapp.data.model.CoinInfoJsonContainerDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,18 +9,18 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("top/totalvolfull")
-    fun getTopCoinInfo (
+    suspend fun getTopCoinInfo (
         @Query(QUERY_PARAM_API_KEY) apiKey: String = API_KEY,
         @Query(QUERY_PARAM_LIMIT) limit: Int = 10,
         @Query(QUERY_PARAM_TO_SYMBOL) tSym: String = CURRENT_USD
-    ): Single<CoinInfoListOfData>
+    ): CoinNamesListDto
 
     @GET("pricemultifull")
-    fun getFullPriceList(
+    suspend fun getFullPriceList(
         @Query(QUERY_PARAM_API_KEY) apiKey : String = API_KEY,
         @Query(QUERY_PARAM_FROM_SYMBOLS) fSym : String,
         @Query(QUERY_PARAM_TO_SYMBOLS) tSym : String = CURRENT_USD
-    ) : Single<CoinPriceInfoRawDate>
+    ) : CoinInfoJsonContainerDto
 
     companion object{
         const val QUERY_PARAM_LIMIT = "limit"

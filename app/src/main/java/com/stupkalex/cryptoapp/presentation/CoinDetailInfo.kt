@@ -1,17 +1,14 @@
-package com.stupkalex.cryptoapp
+package com.stupkalex.cryptoapp.presentation
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
+import com.stupkalex.cryptoapp.R
 
 private lateinit var coinViewModel: CoinViewModel
 
@@ -37,26 +34,29 @@ class CoinDetailInfo : AppCompatActivity() {
         tvDetailName = findViewById(R.id.tvDetailName)
         imageViewCoinLogo = findViewById(R.id.imageViewCoinLogo)
 
-        coinViewModel =
-            ViewModelProvider.AndroidViewModelFactory(application).create(CoinViewModel::class.java)
+
         if (!intent.hasExtra(EXTRA_FROM_SYMBOL)) {
             finish()
             return
         }
-        var fSym = intent.getStringExtra(EXTRA_FROM_SYMBOL)
-        coinViewModel.getDetailInfo(fSym!!).observe(this, Observer {
-            tvDetailPrice.text = it.price.toString() + " " + it.tosymbol
-            tvDetailMinPrice.text = it.lowday.toString() + " " + it.tosymbol
-            tvDetailMaxPrice.text = it.highday.toString() + " " + it.tosymbol
-            tvDetailLastDeal.text = it.lastmarket
-            tvDetailName.text = it.fromsymbol + " | " + it.tosymbol
-            tvDetailLastUpdate.text = it.getFormattedDate()
-                Picasso.get().load(it.getFullImage()).into(imageViewCoinLogo)
-        })
+
+        val fSym = intent.getStringExtra(EXTRA_FROM_SYMBOL)?: EMPTY_SYMBOL
+
+        coinViewModel = ViewModelProvider(this)[CoinViewModel::class.java]
+        coinViewModel.getDetailInfo(fSym).observe(this){
+            tvDetailPrice.text = String.format("%s %s", it.price.toString(), it.toSymbol)
+            tvDetailMinPrice.text = String.format("%s %s", it.lowDay.toString(), it.lowDay)
+            tvDetailMaxPrice.text = String.format("%s %s", it.highDay.toString(), it.toSymbol)
+            tvDetailLastDeal.text = it.lastMarket
+            tvDetailName.text = String.format("%s | %s", it.fromSymbol, it.toSymbol)
+            tvDetailLastUpdate.text = it.lastUpdate
+            Picasso.get().load(it.imageUrl).into(imageViewCoinLogo)
+        }
     }
 
     companion object {
         private const val EXTRA_FROM_SYMBOL = "fSym"
+        private const val EMPTY_SYMBOL = ""
 
         fun newIntent(context: Context, fromSymbol: String): Intent {
             val intent = Intent(context, CoinDetailInfo::class.java)
