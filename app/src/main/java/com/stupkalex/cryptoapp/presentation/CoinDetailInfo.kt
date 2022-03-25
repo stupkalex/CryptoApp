@@ -4,13 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.squareup.picasso.Picasso
+import com.stupkalex.cryptoapp.R
 import com.stupkalex.cryptoapp.databinding.ActivityCoinDetailInfoBinding
 
 class CoinDetailInfo : AppCompatActivity() {
-
-    private lateinit var coinViewModel: CoinViewModel
 
     private val binding by lazy {
         ActivityCoinDetailInfoBinding.inflate(layoutInflater)
@@ -24,17 +21,11 @@ class CoinDetailInfo : AppCompatActivity() {
             return
         }
         val fSym = intent.getStringExtra(EXTRA_FROM_SYMBOL) ?: EMPTY_SYMBOL
-        coinViewModel = ViewModelProvider(this)[CoinViewModel::class.java]
-        coinViewModel.getDetailInfo(fSym).observe(this) {
-            with(binding) {
-                tvDetailPrice.text = String.format("%s %s", it.price.toString(), it.toSymbol)
-                tvDetailMinPrice.text = String.format("%s %s", it.lowDay.toString(), it.lowDay)
-                tvDetailMaxPrice.text = String.format("%s %s", it.highDay.toString(), it.toSymbol)
-                tvDetailLastDeal.text = it.lastMarket
-                tvDetailName.text = String.format("%s | %s", it.fromSymbol, it.toSymbol)
-                tvDetailLastUpdate.text = it.lastUpdate
-                Picasso.get().load(it.imageUrl).into(imageViewCoinLogo)
-            }
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, CoinDetailFragment.newInstance(fSym))
+                .commit()
         }
     }
 

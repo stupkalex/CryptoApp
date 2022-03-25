@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout-land/coin_price_list_activity.xml" value="0.264" />
         <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/activity_coin_detail_info.xml" value="0.4" />
         <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/coin_item.xml" value="0.4" />
         <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/coin_price_list_activity.xml" value="0.4" />
+        <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/fragment_coin_detail_info.xml" value="0.35" />
       </map>
     </option>
   </component>

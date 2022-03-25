@@ -12,8 +12,6 @@ import com.stupkalex.cryptoapp.databinding.CoinPriceListActivityBinding
 import com.stupkalex.cryptoapp.domain.CoinInfo
 
 
-
-
 class CoinPriceListActivity : AppCompatActivity() {
 
     private lateinit var coinViewModel: CoinViewModel
@@ -26,22 +24,38 @@ class CoinPriceListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         coinViewModel = ViewModelProvider(this)[CoinViewModel::class.java]
-
         val adapter = CoinInfoAdapter()
         binding.rvCoinPriceList.adapter = adapter
-        adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
-            override fun onCoinClick(coinInfo: CoinInfo) {
-                startActivity(
-                    CoinDetailInfo.newIntent(
-                        this@CoinPriceListActivity,
-                        coinInfo.fromSymbol
-                    )
-                )
-            }
-        }
+        adapter.onCoinClickListener = launchOnClickListener()
         coinViewModel.coinInfoList.observe(this) {
             adapter.submitList(it)
         }
+    }
 
+    private fun launchOnClickListener() =  object : CoinInfoAdapter.OnCoinClickListener {
+            override fun onCoinClick(coinInfo: CoinInfo) {
+                if (isOnePadMode()) {
+                    startActivity(
+                        CoinDetailInfo.newIntent(
+                            this@CoinPriceListActivity,
+                            coinInfo.fromSymbol
+                        )
+                    )
+                } else {
+                    supportFragmentManager.popBackStack()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(
+                            R.id.priceListActivityContainer,
+                            CoinDetailFragment.newInstance(coinInfo.fromSymbol)
+                        )
+                        .commit()
+                }
+            }
+    }
+
+    private fun isOnePadMode(): Boolean {
+        return binding.priceListActivityContainer == null
     }
 }
