@@ -3,11 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/drawable/ic_baseline_qr_code_scanner_24.xml" value="0.2265" />
         <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout-land/coin_price_list_activity.xml" value="0.264" />
         <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/activity_coin_detail_info.xml" value="0.4" />
         <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/coin_item.xml" value="0.4" />
         <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/coin_price_list_activity.xml" value="0.4" />
         <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/fragment_coin_detail_info.xml" value="0.35" />
+        <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/main_layout.xml" value="0.4" />
+        <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/my_toolbar.xml" value="0.19814814814814816" />
+        <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/test_four.xml" value="0.36187845303867405" />
+        <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/test_layout.xml" value="0.264" />
+        <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/test_layout_two.xml" value="0.264" />
+        <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/test_three.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/layout/text_layout.xml" value="0.35" />
+        <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/menu/bottom_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/stupk/AndroidStudioProjects/CryptoApp/app/src/main/res/menu/menu.xml" value="0.264" />
       </map>
     </option>
   </component>

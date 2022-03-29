@@ -11,8 +11,6 @@ import com.stupkalex.cryptoapp.domain.CoinInfo
 
 class CoinInfoAdapter : ListAdapter<CoinInfo, CoinInfoViewHolder>(ItemCallback()) {
 
-    var onCoinClickListener: OnCoinClickListener? = null
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoViewHolder {
         val binding = CoinItemBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -32,13 +30,6 @@ class CoinInfoAdapter : ListAdapter<CoinInfo, CoinInfoViewHolder>(ItemCallback()
                 coin.lastUpdate
             )
             Picasso.get().load(coin.imageUrl).into(ivCoinLogo)
-            root.setOnClickListener {
-                onCoinClickListener?.onCoinClick(coin)
-            }
         }
-    }
-
-    interface OnCoinClickListener {
-        fun onCoinClick(coinInfo: CoinInfo)
     }
 }

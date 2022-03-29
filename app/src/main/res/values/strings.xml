@@ -5,4 +5,24 @@
     <string name="tvDetailLabelMaxPrice">Максимум за день:</string>
     <string name="tvDetailLabelLastDeal">Последняя сделка:</string>
     <string name="tvDetailLabelLastUpdate">Последнее обновление:</string>
+    <string name="item1">Item1</string>
+    <string name="action_bar_spinner">action_bar_spinner</string>
+    <string name="coin_list_text">Курс криптовалют</string>
+    <string name="profile_text">Профиль</string>
+    <string name="trade_text">Сделки</string>
+    <string name="gbp">GBP</string>
+    <string name="idr">IDR</string>
+    <string name="jpy">JPY</string>
+    <string name="eur">EUR</string>
+    <string name="rub">RUB</string>
+    <string name="usd">USD</string>
+
+    <string-array name="limit">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+    </string-array>
 </resources>
