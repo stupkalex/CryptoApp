@@ -10,20 +10,27 @@ import com.stupkalex.cryptoapp.presentation.adapter.CoinInfoAdapter
 import com.stupkalex.cryptoapp.data.model.CoinInfoDto
 import com.stupkalex.cryptoapp.databinding.CoinPriceListActivityBinding
 import com.stupkalex.cryptoapp.domain.CoinInfo
+import javax.inject.Inject
 
 
 class CoinPriceListActivity : AppCompatActivity() {
 
-    private lateinit var coinViewModel: CoinViewModel
+   @Inject
+   lateinit var viewModuleFactory: ViewModelFactory
+
+    private val component by lazy{
+        (application as CoinApp).component
+    }
 
     private val binding by lazy {
         CoinPriceListActivityBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        coinViewModel = ViewModelProvider(this)[CoinViewModel::class.java]
+        val coinViewModel =  ViewModelProvider(this, viewModuleFactory)[CoinViewModel::class.java]
         val adapter = CoinInfoAdapter()
         binding.rvCoinPriceList.adapter = adapter
         adapter.onCoinClickListener = launchOnClickListener()

@@ -13,14 +13,27 @@ import com.squareup.picasso.Picasso
 import com.stupkalex.cryptoapp.databinding.ActivityCoinDetailInfoBinding
 import com.stupkalex.cryptoapp.databinding.FragmentCoinDetailInfoBinding
 import java.lang.RuntimeException
+import javax.inject.Inject
 
 class CoinDetailFragment : Fragment() {
 
     private lateinit var coinViewModel: CoinViewModel
 
+    @Inject
+    lateinit var viewModuleFactory: ViewModelFactory
+
     private var _binding: FragmentCoinDetailInfoBinding? = null
     private val binding: FragmentCoinDetailInfoBinding
         get() = _binding ?: throw RuntimeException("Fragment not found")
+
+    private val component by lazy{
+        (requireActivity().application as CoinApp).component
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
+    }
 
         override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,11 +47,11 @@ class CoinDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fSym = getSymbol()
-        coinViewModel = ViewModelProvider(this)[CoinViewModel::class.java]
+        coinViewModel = ViewModelProvider(this, viewModuleFactory)[CoinViewModel::class.java]
         coinViewModel.getDetailInfo(fSym).observe(viewLifecycleOwner) {
             with(binding) {
                 tvDetailPrice.text = String.format("%s %s", it.price.toString(), it.toSymbol)
-                tvDetailMinPrice.text = String.format("%s %s", it.lowDay.toString(), it.lowDay)
+                tvDetailMinPrice.text = String.format("%s %s", it.lowDay.toString(), it.toSymbol)
                 tvDetailMaxPrice.text = String.format("%s %s", it.highDay.toString(), it.toSymbol)
                 tvDetailLastDeal.text = it.lastMarket
                 tvDetailName.text = String.format("%s | %s", it.fromSymbol, it.toSymbol)
